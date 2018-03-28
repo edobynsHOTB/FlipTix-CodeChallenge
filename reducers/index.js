@@ -4,14 +4,14 @@ function app (state={}, action) {
   switch (action.type) {
     case AUTHENTICATE_USER:
     const  user  = action.user;
-    console.log(user)
+ 
       return {
         ...state,
         user
       }
     case GET_EVENTS: 
-    const events = action.event;
-    
+    const events = action.event.data.events;
+  
     return {
       ...state,
       events

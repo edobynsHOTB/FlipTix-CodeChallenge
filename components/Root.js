@@ -3,10 +3,13 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux';
 import { StackNavigator } from 'react-navigation';
+import axios from 'axios';
 
 import Login from './Login';
 import Events from './EventList';
 import EventDetails from './EventDetails';
+
+import { userAuth } from '../actions/index';
 
 
 const Stack = StackNavigator({
@@ -39,8 +42,8 @@ class Root extends React.Component {
     logged: false
   }
 
+
   render() {
-    // console.log('from root :', this.props.app.user)
     return (
       <View style={{ flex: 1 }}>
         {this.props.app.user ? <Stack /> : <Login />}

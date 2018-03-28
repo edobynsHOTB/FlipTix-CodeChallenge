@@ -2,10 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Constants } from 'expo';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
 import reducer from './reducers';
+import { createStore, applyMiddleware, compose} from 'redux';
+import thunkMiddleware from 'redux-thunk';
 
 // COMPONENTS
 import Login from './components/Login';
@@ -24,39 +25,49 @@ function MyStatusBar({ backgroundColor, ...props }) {
   )
 }
 
-const Stack = StackNavigator({
-  Login: {
-    screen: Login,
-    navigationOptions: {
-      title: 'Login',
-      headerTintColor: '#3498db',
-      headerStyle: {
-        backgroundColor: '#f1f1f1'
-      }
-    }
-  },
-  EventList: {
-    screen: Events,
-    navigationOptions: {
-      title: 'Event List',
-      headerTintColor: '#3498db',
-      headerStyle: {
-        backgroundColor: '#f1f1f1'
-      }
-    }
-  },
-  EventDetails: {
-    screen: EventDetails,
-    navigationOptions: {
-      title: 'Event Details',
-      headerTintColor: '#3498db',
-      headerStyle: {
-        backgroundColor: '#f1f1f1'
-      }
-    }
-  },
-});
+// const Stack = StackNavigator({
+//   Login: {
+//     screen: Login,
+//     navigationOptions: {
+//       title: 'Login',
+//       headerTintColor: '#3498db',
+//       headerStyle: {
+//         backgroundColor: '#f1f1f1'
+//       }
+//     }
+//   },
+//   EventList: {
+//     screen: Events,
+//     navigationOptions: {
+//       title: 'Event List',
+//       headerTintColor: '#3498db',
+//       headerStyle: {
+//         backgroundColor: '#f1f1f1'
+//       }
+//     }
+//   },
+//   EventDetails: {
+//     screen: EventDetails,
+//     navigationOptions: {
+//       title: 'Event Details',
+//       headerTintColor: '#3498db',
+//       headerStyle: {
+//         backgroundColor: '#f1f1f1'
+//       }
+//     }
+//   },
+// });
 
+function configureStore(initialState) {
+  const enhancer = compose(
+      applyMiddleware(
+          thunkMiddleware, 
+      ),
+  );
+  return createStore(reducer, initialState, enhancer);
+}
+
+const store = configureStore({});
 
 export default class App extends React.Component {
   state = {
@@ -65,7 +76,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={store}>
         <View style={{ flex: 1 }}>
           <MyStatusBar backgroundColor={'gray'} barStyle='light-content' />
           <Root /> 

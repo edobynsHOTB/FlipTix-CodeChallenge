@@ -1,16 +1,41 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
+import axios from 'axios';
+
+import { getEvents } from '../actions/index';
 
 class Events extends React.Component {
+
+  componentDidMount(){
+    const headers = { 
+      'Authorization': this.props.app.user.Authorization
+     }
+    this.props.dispatch(getEvents(headers))
+  }
+
+
   render() {
+   // console.log(this.props.app.events)
+   const { events } = this.props.app;
+  //  console.log(events)
     return (
-      <View style={styles.container}>
-        <Text>This is the Event List page</Text>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('EventDetails')}>
-          <Text>Details</Text>
-        </TouchableOpacity>
-      </View>
+      <ScrollView contentContainerStyle={styles.container}>
+        {events ? events.map((event) => {
+					return(
+            <ImageBackground key={event.eventName} style={{ flex: 1, margin: 4}} source={{ uri: event.eventImageUrl }}>
+            <View style={styles.card}>
+              <Text style={styles.cardText}>{event.eventName}</Text>
+              <Text style={styles.cardText}>{event.venueName}</Text>
+              <Text style={styles.cardText}>{event.eventDateTime}</Text>
+            </View>
+            </ImageBackground>
+          );
+
+        })
+        :
+        <Text>Waiting</Text>}
+    </ScrollView>
     );
   }
 }
@@ -18,10 +43,26 @@ class Events extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+		alignSelf: 'stretch',
+		padding: 5
   },
+  card: {
+    flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'rgba(0,0,0,.4)',
+		height: 200,
+  },
+  cardText: {
+		fontSize: 20,
+		color: '#fff'
+	},
 });
 
-export default connect()(Events);
+mapStateToProps = (app) => {
+  return {
+    app
+  }
+}
+
+export default connect(mapStateToProps)(Events);

@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const AUTHENTICATE_USER = 'AUTHENTICATE_USER';
 export const GET_EVENTS = 'GET_EVENTS';
 
@@ -8,9 +10,26 @@ export function userAuth(user){
   }
 }
 
-export function getEvents(event){
-  return {
-    type: GET_EVENTS,
-    event
-  }
+export const getEvents = (key) => async dispatch => {
+  //  const headers = {
+  //   'api-key': 'hotbsoftware123456',
+  //   'Authorization': key.Authorization
+  //  }
+  //  const event = await axios.get('http://18.144.44.44:5000/api/v1/events', headers)
+  axios.get('http://18.144.44.44:5000/api/v1/events', {
+    headers: { 
+      'api-key': 'hotbsoftware123456',
+       'Authorization': key.Authorization
+    }
+  }).then((event) => {
+    dispatch({
+      type: GET_EVENTS,
+      event
+    });
+  })
+    .catch((error) => {
+      console.log(error)
+    })
+
 }
+
