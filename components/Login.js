@@ -31,9 +31,7 @@ class Login extends React.Component {
       })
   }
 
-
   render() {
-
     return (
       <View style={styles.container}>
         <Text style={styles.mainText}>Welcome to Eventz</Text>

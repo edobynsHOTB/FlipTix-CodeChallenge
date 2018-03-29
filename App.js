@@ -8,14 +8,12 @@ import reducer from './reducers';
 import { createStore, applyMiddleware, compose} from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
-// COMPONENTS
 import Login from './components/Login';
 import Events from './components/EventList';
 import EventDetails from './components/EventDetails';
 import Root from './components/Root';
 
-// icons
-import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 function MyStatusBar({ backgroundColor, ...props }) {
   return (
@@ -24,39 +22,6 @@ function MyStatusBar({ backgroundColor, ...props }) {
     </View>
   )
 }
-
-// const Stack = StackNavigator({
-//   Login: {
-//     screen: Login,
-//     navigationOptions: {
-//       title: 'Login',
-//       headerTintColor: '#3498db',
-//       headerStyle: {
-//         backgroundColor: '#f1f1f1'
-//       }
-//     }
-//   },
-//   EventList: {
-//     screen: Events,
-//     navigationOptions: {
-//       title: 'Event List',
-//       headerTintColor: '#3498db',
-//       headerStyle: {
-//         backgroundColor: '#f1f1f1'
-//       }
-//     }
-//   },
-//   EventDetails: {
-//     screen: EventDetails,
-//     navigationOptions: {
-//       title: 'Event Details',
-//       headerTintColor: '#3498db',
-//       headerStyle: {
-//         backgroundColor: '#f1f1f1'
-//       }
-//     }
-//   },
-// });
 
 function configureStore(initialState) {
   const enhancer = compose(
@@ -69,12 +34,7 @@ function configureStore(initialState) {
 
 const store = configureStore({});
 
-export default class App extends React.Component {
-  state = {
-    loggedIn: false
-  }
-
-  render() {
+export default function App() {
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
@@ -84,8 +44,6 @@ export default class App extends React.Component {
       </Provider>
     );
   }
-}
-
 
 const styles = StyleSheet.create({
   container: {

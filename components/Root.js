@@ -37,12 +37,6 @@ const Stack = StackNavigator({
 
 
 class Root extends React.Component {
-
-  state = {
-    logged: false
-  }
-
-
   render() {
     return (
       <View style={{ flex: 1 }}>
