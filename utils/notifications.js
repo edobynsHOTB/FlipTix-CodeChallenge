@@ -1,13 +1,13 @@
-import React from 'react'
-import { AsyncStorage } from 'react-native'
-import { Notifications, Permissions } from 'expo'
+import React from 'react';
+import { AsyncStorage } from 'react-native';
+import { Notifications, Permissions } from 'expo';
 
 const NOTIFICATION_KEY = 'Eventz';
 
  
 export function clearLocalNotification () {
 	return AsyncStorage.removeItem(NOTIFICATION_KEY)
-	.then(Notifications.cancelAllNotificationsAsync)
+	.then(Notifications.cancelAllNotificationsAsync);
 }
 
 function createNotification () {
@@ -34,12 +34,12 @@ export function setLocalNotification () {
         Permissions.askAsync(Permissions.NOTIFICATIONS)
           .then(({ status }) => {
             if (status === 'granted') {
-              Notifications.cancelAllScheduledNotificationsAsync()
+              Notifications.cancelAllScheduledNotificationsAsync();
 
               let tomorrow = new Date()
-              tomorrow.setDate(tomorrow.getDate() + 1)
-              tomorrow.setHours(20)
-              tomorrow.setMinutes(0)
+              tomorrow.setDate(tomorrow.getDate() + 1);
+              tomorrow.setHours(20);
+              tomorrow.setMinutes(0);
 
               Notifications.scheduleLocalNotificationAsync(
                 createNotification(),
@@ -47,9 +47,9 @@ export function setLocalNotification () {
                   time: tomorrow,
                   repeat: 'day',
                 }
-              )
+              );
 
-              AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+              AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
             }
           })
       }

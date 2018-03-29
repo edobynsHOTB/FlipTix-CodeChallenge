@@ -37,10 +37,15 @@ function configureStore(initialState) {
 const store = configureStore({});
 // App entry point
 export default class App extends React.Component {
-
+  
   componentDidMount() {
     setLocalNotification();
   }
+
+  shouldComponentUpdate () {
+    return false;
+  }
+
 
   render() {
     return (

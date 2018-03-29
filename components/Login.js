@@ -29,6 +29,10 @@ class Login extends React.Component {
     }
   }
 
+  shouldComponentUpdate(){
+    return false;
+  }
+
   render() {
     return (
       <View style={styles.container}>

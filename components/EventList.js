@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, ImageBackground, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, ImageBackground, Button, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import moment from 'moment';
 
 import { clearLocalNotification } from '../utils/notifications';
-import { white, darkGray, overlay } from '../utils/colors';
+import { white, darkGray, overlay, blue } from '../utils/colors';
 import { getEvents } from '../actions/index';
 import { logoutUser } from '../actions/index';
 
@@ -61,7 +61,9 @@ class Events extends React.Component {
           );
         })
           :
-          <Text>Waiting</Text>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+             <ActivityIndicator size="small" color={blue}/>
+          </View>
         }
       </ScrollView>
     );

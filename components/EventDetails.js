@@ -20,6 +20,9 @@ class EventDetails extends React.Component {
     return date;
   }
 
+  shouldComponentUpdate (nextProps, nextState) {
+    return false;
+  }
 
   ShareMessage = () => {
     Share.share({
