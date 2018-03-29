@@ -4,7 +4,8 @@ import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-import { userAuth } from '../actions/index';
+import { lightgray, white, darkGray, green } from '../utils/colors';
+import { userAuth, loginUser } from '../actions/index';
 
 const { height, width } = Dimensions.get('window');
 
@@ -16,23 +17,16 @@ class Login extends React.Component {
     msg: ''
   }
 
-
   submitUserLogin = () => {
-    const body = {
-      username: this.state.username,
-      password: this.state.password
+    if (this.state.username || this.state.password) {
+      const body = {
+        username: this.state.username,
+        password: this.state.password
+      }
+      this.props.dispatch(loginUser(body))
+    } else {
+      this.setState({ msg: 'Fill out the form 🙃' });
     }
-
-    axios.post('http://18.144.44.44:5000/api/v1/login', body, {
-      headers: { 'api-key': 'hotbsoftware123456' }
-    }).then((response) => {
-      this.props.dispatch(userAuth(response.data));
-    })
-      .catch((error) => {
-        if(this.state.username || this.state.password){
-          this.setState({ msg: 'OOPS! Try again 🙃' })
-        }
-      })
   }
 
   render() {
@@ -70,16 +64,16 @@ class Login extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: white,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#cecccc'
+    backgroundColor: lightgray
   },
   submitBtn: {
     width: width / 1.5,
     height: 44,
     padding: 10,
-    backgroundColor: '#00a080',
+    backgroundColor: green,
     borderRadius: 20,
     overflow: 'hidden',
     justifyContent: 'center',
@@ -87,7 +81,7 @@ const styles = StyleSheet.create({
     marginTop: 40
   },
   submitBtnText: {
-    color: '#fff',
+    color: white,
     fontSize: 20,
     textAlign: 'center',
     fontWeight: '200'
@@ -95,19 +89,18 @@ const styles = StyleSheet.create({
   input: {
     height: 35,
     width: width / 1.5,
-    borderColor: 'gray',
     margin: 4,
     textAlign: 'center',
     fontSize: 18,
     fontWeight: '100',
     borderBottomWidth: 1,
-    borderColor: '#00a080',
+    borderColor: green,
     borderRadius: 8,
-    color: '#333'
+    color: darkGray
   },
   mainText: {
     fontSize: 28,
-    color: '#00a080',
+    color: green,
     fontWeight: '200',
     marginBottom: 40
   },

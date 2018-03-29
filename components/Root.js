@@ -1,73 +1,57 @@
+// Libraries
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux';
 import { StackNavigator } from 'react-navigation';
 import axios from 'axios';
-
+import { blue, lightgray, white, darkGray } from '../utils/colors';
+// Components
 import Login from './Login';
 import Events from './EventList';
 import EventDetails from './EventDetails';
-
+// Actions
 import { userAuth } from '../actions/index';
 
-
+// Views
 const Stack = StackNavigator({
   EventList: {
     screen: Events,
     navigationOptions: {
       title: 'Event List',
-      headerTintColor: '#2b7cff',
+      headerTintColor: blue,
       headerStyle: {
-        backgroundColor: '#f1f1f1'
-      }
+        backgroundColor: lightgray
+      },
     }
   },
   EventDetails: {
     screen: EventDetails,
     navigationOptions: {
       title: 'Event Details',
-      headerTintColor: '#2b7cff',
+      headerTintColor: blue,
       headerStyle: {
-        backgroundColor: '#f1f1f1'
+        backgroundColor: lightgray
       }
     }
   },
 });
 
-
-class Root extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1 }}>
-        {this.props.app.user ? <Stack /> : <Login />}
-      </View>
-    );
-  }
+function Root(props) {
+  return (
+    <View style={{ flex: 1 }}>
+      {props.app.user ? <Stack /> : <Login />}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: white,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  submitBtn: {
-    width: 100,
-    height: 40,
-    borderWidth: 0.5,
-    borderColor: '#d6d7da',
-    padding: 10,
-    backgroundColor: 'orange',
-    borderRadius: 7,
-    overflow: 'hidden'
-  },
-  submitBtnText: {
-    color: '#fff',
-    fontSize: 22,
-    textAlign: 'center'
-  },
+  }
 });
 
 mapStateToProps = (app) => {

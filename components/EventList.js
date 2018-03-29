@@ -1,19 +1,38 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, ImageBackground, Button } from 'react-native';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import moment from 'moment';
 
+import { white, darkGray, overlay } from '../utils/colors';
 import { getEvents } from '../actions/index';
+import { logoutUser } from '../actions/index';
 
 class Events extends React.Component {
 
+  static navigationOptions = ({ navigation }) => {
+    const { params = {} } = navigation.state;
+    return {
+      headerRight: (
+      <Button handleSubmit={params.handleSubmit} 
+              title="Logout" 
+              onPress = {() => params.handleSubmit && params.handleSubmit()}
+              />
+            ) 
+          };
+        };
+
+  submitStatus = () => {
+    this.props.dispatch(logoutUser(this.props.app.user));
+  }
+
   componentDidMount() {
+    this.props.navigation.setParams({ handleSubmit: this.submitStatus });
     var now = moment('2018-03-27T23:00:00Z').format('MMM Do YYYY, h:mm:ss A');
-    const headers = {
-      'Authorization': this.props.app.user.Authorization
-    }
-    this.props.dispatch(getEvents(headers))
+    const headers = { 
+      'Authorization': this.props.app.user.Authorization 
+    };
+    this.props.dispatch(getEvents(headers));
   }
 
   getDate = (date) => {
@@ -21,7 +40,7 @@ class Events extends React.Component {
     return date;
   }
 
-
+  // PLEASE NOTE: I would not use scrollview for large lists, but the ListView component
   render() {
     const { events } = this.props.app;
     return (
@@ -57,26 +76,26 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,.5)',
+    backgroundColor: overlay,
     height: 200,
   },
   contentTitle: { 
     fontSize: 22, 
-    color: '#333', 
-    color: '#fff',
+    color: darkGray, 
+    color: white,
     margin: 8
   },
   contentSecondary: { 
     fontSize: 16, 
-    color: '#333', 
+    color: darkGray, 
     fontWeight: '100',
-    color: '#fff' 
+    color: white 
   },
   contentGeneral: { 
     fontSize: 14, 
-    color: '#333', 
+    color: darkGray, 
     fontWeight: '100',
-    color: '#fff' 
+    color: white 
   },
   backgroundImage: { flex: 1, margin: 4 },
 });
