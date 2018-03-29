@@ -1,10 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux';
 import axios from 'axios';
 
 import { userAuth } from '../actions/index';
+
+const { height, width } = Dimensions.get('window');
 
 class Login extends React.Component {
 
@@ -27,14 +29,16 @@ class Login extends React.Component {
       this.props.dispatch(userAuth(response.data));
     })
       .catch((error) => {
-        this.setState({ msg: 'OOPS! Try again 🙃' })
+        if(this.state.username || this.state.password){
+          this.setState({ msg: 'OOPS! Try again 🙃' })
+        }
       })
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.mainText}>Welcome to Eventz</Text>
+        <Text style={styles.mainText}>Welcome to Eventz!</Text>
         <TextInput
           autoCapitalize={'none'}
           placeholder={'username'}
@@ -51,11 +55,11 @@ class Login extends React.Component {
           onChangeText={(password) => this.setState({ password })}
           value={this.state.text}
         />
-        <TouchableOpacity onPress={() => this.submitUserLogin()}>
-          <Text>Submit</Text>
+        <TouchableOpacity onPress={() => this.submitUserLogin()} style={styles.submitBtn}>
+          <Text style={styles.submitBtnText}>Submit</Text>
         </TouchableOpacity>
 
-        <View>
+        <View style={styles.msg}>
           <Text>{this.state.msg}</Text>
         </View>
       </View>
@@ -69,33 +73,46 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#cecccc'
   },
   submitBtn: {
-    width: 100,
-    height: 40,
-    borderWidth: 0.5,
-    borderColor: '#d6d7da',
+    width: width / 1.5,
+    height: 44,
     padding: 10,
-    backgroundColor: 'orange',
-    borderRadius: 7,
-    overflow: 'hidden'
+    backgroundColor: '#00a080',
+    borderRadius: 20,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 40
   },
   submitBtnText: {
     color: '#fff',
-    fontSize: 22,
-    textAlign: 'center'
+    fontSize: 20,
+    textAlign: 'center',
+    fontWeight: '200'
   },
   input: {
-    height: 30,
-    width: 120,
+    height: 35,
+    width: width / 1.5,
     borderColor: 'gray',
-    borderWidth: 1,
     margin: 4,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: '100',
+    borderBottomWidth: 1,
+    borderColor: '#00a080',
+    borderRadius: 8,
+    color: '#333'
   },
   mainText: {
-    fontSize: 20,
-    color: 'lightblue'
+    fontSize: 28,
+    color: '#00a080',
+    fontWeight: '200',
+    marginBottom: 40
+  },
+  msg: {
+    marginTop: 20
   }
 });
 

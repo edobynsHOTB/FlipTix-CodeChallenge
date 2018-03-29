@@ -10,7 +10,6 @@ class Events extends React.Component {
 
   componentDidMount() {
     var now = moment('2018-03-27T23:00:00Z').format('MMM Do YYYY, h:mm:ss A');
-    console.log(now);
     const headers = {
       'Authorization': this.props.app.user.Authorization
     }
@@ -25,7 +24,6 @@ class Events extends React.Component {
 
   render() {
     const { events } = this.props.app;
-    console.log(events);
     return (
       <ScrollView contentContainerStyle={styles.container}>
         {events ? events.map((event) => {

@@ -13,8 +13,6 @@ import Events from './components/EventList';
 import EventDetails from './components/EventDetails';
 import Root from './components/Root';
 
-import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
-
 function MyStatusBar({ backgroundColor, ...props }) {
   return (
     <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -38,7 +36,7 @@ export default function App() {
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
-          <MyStatusBar backgroundColor={'gray'} barStyle='light-content' />
+          <MyStatusBar barStyle='dark-content' />
           <Root /> 
         </View>
       </Provider>

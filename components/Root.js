@@ -17,7 +17,7 @@ const Stack = StackNavigator({
     screen: Events,
     navigationOptions: {
       title: 'Event List',
-      headerTintColor: '#3498db',
+      headerTintColor: '#2b7cff',
       headerStyle: {
         backgroundColor: '#f1f1f1'
       }
@@ -27,7 +27,7 @@ const Stack = StackNavigator({
     screen: EventDetails,
     navigationOptions: {
       title: 'Event Details',
-      headerTintColor: '#3498db',
+      headerTintColor: '#2b7cff',
       headerStyle: {
         backgroundColor: '#f1f1f1'
       }
