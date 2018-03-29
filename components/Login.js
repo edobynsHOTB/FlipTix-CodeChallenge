@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Dimensions, Platform } from 'react-native';
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -40,6 +40,7 @@ class Login extends React.Component {
           style={styles.input}
           onChangeText={(username) => this.setState({ username })}
           value={this.state.text}
+          underlineColorAndroid={'transparent'}
         />
         <TextInput
           autoCapitalize={'none'}
@@ -48,8 +49,9 @@ class Login extends React.Component {
           style={styles.input}
           onChangeText={(password) => this.setState({ password })}
           value={this.state.text}
+          underlineColorAndroid={'transparent'}
         />
-        <TouchableOpacity onPress={() => this.submitUserLogin()} style={styles.submitBtn}>
+        <TouchableOpacity onPress={() => this.submitUserLogin()} style={Platform.OS === 'ios' ? styles.btnIOS : styles.btnAndroid}>
           <Text style={styles.submitBtnText}>Submit</Text>
         </TouchableOpacity>
 
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: lightgray
   },
-  submitBtn: {
+  btnIOS: {
     width: width / 1.5,
     height: 44,
     padding: 10,
@@ -97,6 +99,16 @@ const styles = StyleSheet.create({
     borderColor: green,
     borderRadius: 8,
     color: darkGray
+  },
+  btnAndroid: {
+    width: width / 2.5,
+    height: 44,
+    padding: 10,
+    backgroundColor: green,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 40,
   },
   mainText: {
     fontSize: 28,

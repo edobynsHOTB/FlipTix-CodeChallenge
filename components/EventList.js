@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import moment from 'moment';
 
+import { clearLocalNotification } from '../utils/notifications';
 import { white, darkGray, overlay } from '../utils/colors';
 import { getEvents } from '../actions/index';
 import { logoutUser } from '../actions/index';
@@ -33,6 +34,7 @@ class Events extends React.Component {
       'Authorization': this.props.app.user.Authorization 
     };
     this.props.dispatch(getEvents(headers));
+    clearLocalNotification()
   }
 
   getDate = (date) => {

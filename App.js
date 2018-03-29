@@ -13,6 +13,9 @@ import Login from './components/Login';
 import Events from './components/EventList';
 import EventDetails from './components/EventDetails';
 import Root from './components/Root';
+
+import { lightgray } from './utils/colors';
+import { setLocalNotification } from './utils/notifications';
 // StatusBar
 function MyStatusBar({ backgroundColor, ...props }) {
   return (
@@ -33,21 +36,29 @@ function configureStore(initialState) {
 
 const store = configureStore({});
 // App entry point
-export default function App() {
-  return (
-    <Provider store={store}>
-      <View style={{ flex: 1 }}>
-        <MyStatusBar barStyle='dark-content' />
-        <Root />
-      </View>
-    </Provider>
-  );
+export default class App extends React.Component {
+
+  componentDidMount() {
+    setLocalNotification();
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        <View style={{ flex: 1 }}>
+          <MyStatusBar backgroundColor={lightgray} barStyle='dark-content' />
+          <Root />
+        </View>
+      </Provider>
+    )
+  }
+
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'gray',
+    backgroundColor: lightgray,
     alignItems: 'center',
     justifyContent: 'center',
   },

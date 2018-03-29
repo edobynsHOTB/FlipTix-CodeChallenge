@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, Share, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, Share, Button, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import QRCode from 'react-native-qrcode';
 import moment from 'moment';
@@ -30,7 +30,6 @@ class EventDetails extends React.Component {
   render() {
     const event = this.props.navigation.state.params.entryId;
     const item = this.props.app.events.filter((e) => e.eventName === event);
-
     return (
       <View style={styles.container}>
         <View style={{ flex: 1 }}>
@@ -42,11 +41,11 @@ class EventDetails extends React.Component {
               <Text style={styles.contentGeneral}>{this.getDate(item[0].eventDateTime)}</Text>
             </View>
             <View style={{ justifyContent: 'space-around', alignItems: 'center' }}>
-              <Ionicons name='ios-heart-outline'
+              <Ionicons name={ Platform.OS === 'ios' ?'ios-heart-outline' : 'md-heart-outline' }
                 size={30}
                 color={blue}
                 style={styles.icon} />
-              <Ionicons name='ios-share-outline'
+              <Ionicons name={ Platform.OS === 'ios' ? 'ios-share-outline' : 'md-share' }
                 size={30} color={blue}
                 style={styles.icon}
                 onPress={this.ShareMessage} />
@@ -98,6 +97,7 @@ const styles = StyleSheet.create({
     flex: 2,
     width,
     padding: 15,
+    flexDirection: Platform.OS === 'ios' ? 'column' : 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
   },
