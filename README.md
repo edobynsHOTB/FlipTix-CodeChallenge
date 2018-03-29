@@ -1,3 +1,12 @@
+#Getting started with the Eventz App
+##Clone the repo
+##cd into the directory 
+##run 'yarn install' to install the depencies
+
+#Requirements
+##It is best to have Yarn installed
+##To run the app in development on your phone, install the Expo app and scan the barcode when starting up the app.
+
 # Code Challenge
 
 ## Instructions
