@@ -1,7 +1,7 @@
 # Getting started with the Eventz App
 1) Clone the repo
 2) cd into the projects directory 
-3) run 'yarn install' to install the depencies
+3) run 'yarn install' to install the dependencies
 4) run yarn start to start the app
 
 # Requirements
