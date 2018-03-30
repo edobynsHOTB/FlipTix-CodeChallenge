@@ -1,8 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, Share, Button, Platform, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import QRCode from 'react-native-qrcode';
 import moment from 'moment';
+import { 
+  StyleSheet, 
+  Text, View, 
+  Image, 
+  Dimensions, 
+  Share, 
+  Button, 
+  Platform, 
+  TouchableOpacity 
+} from 'react-native';
 
 import { blue, lightgray, white, darkGray } from '../utils/colors';
 import { Ionicons } from '@expo/vector-icons';

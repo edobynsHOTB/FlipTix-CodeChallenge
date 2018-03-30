@@ -3,7 +3,6 @@ import { AsyncStorage } from 'react-native';
 import { Notifications, Permissions } from 'expo';
 
 const NOTIFICATION_KEY = 'Eventz';
-
  
 export function clearLocalNotification () {
 	return AsyncStorage.removeItem(NOTIFICATION_KEY)
@@ -12,7 +11,7 @@ export function clearLocalNotification () {
 
 function createNotification () {
 	return {
-		title: 'Hey from eventz!',
+		title: 'Hey from Eventz!',
 		body: "👋 don't forget to find new events!",
 		ios: {
 			sound: true

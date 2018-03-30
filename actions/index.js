@@ -28,7 +28,7 @@ export const userAuth = (user) => {
 // Get all events
 export const getEvents = (key) => async dispatch => {
   axios.get(API_URL + '/events', {
-    headers: Object.assign(headers, {'Authorization': key.Authorization}),
+    headers: Object.assign(headers, {'Authorization': key}),
   }).then((event) => {
     dispatch({
       type: GET_EVENTS,
@@ -59,5 +59,5 @@ export const logoutUser = (data) => async dispatch => {
     .catch((error) => {
       console.log(error)
     })
-}
+  }
 

@@ -1,13 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, ImageBackground, Button, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import moment from 'moment';
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  TouchableOpacity, 
+  ScrollView, 
+  ImageBackground, 
+  Button, 
+  ActivityIndicator 
+} from 'react-native';
 
 import { clearLocalNotification } from '../utils/notifications';
 import { white, darkGray, overlay, blue } from '../utils/colors';
-import { getEvents } from '../actions/index';
-import { logoutUser } from '../actions/index';
+import { getEvents, logoutUser } from '../actions/index';
 
 class Events extends React.Component {
 
@@ -29,17 +37,12 @@ class Events extends React.Component {
 
   componentDidMount() {
     this.props.navigation.setParams({ handleSubmit: this.submitStatus });
-    var now = moment('2018-03-27T23:00:00Z').format('MMM Do YYYY, h:mm:ss A');
-    const headers = { 
-      'Authorization': this.props.app.user.Authorization 
-    };
-    this.props.dispatch(getEvents(headers));
+    this.props.dispatch(getEvents(this.props.app.user.Authorization ));
     clearLocalNotification()
   }
 
   getDate = (date) => {
-    var date = moment(date).format('MMM Do YYYY, h:mm A');
-    return date;
+    return moment(date).format('MMM Do YYYY, h:mm A');
   }
 
   // PLEASE NOTE: I would not use scrollview for large lists, but the ListView component
@@ -61,7 +64,7 @@ class Events extends React.Component {
           );
         })
           :
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={styles.loader}>
              <ActivityIndicator size="small" color={blue}/>
           </View>
         }
@@ -101,7 +104,15 @@ const styles = StyleSheet.create({
     fontWeight: '100',
     color: white 
   },
-  backgroundImage: { flex: 1, margin: 4 },
+  backgroundImage: { 
+    flex: 1, 
+    margin: 4 
+  },
+  loader: { 
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center' 
+  }
 });
 
 mapStateToProps = (app) => {

@@ -1,8 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Dimensions, Platform, KeyboardAvoidingView } from 'react-native';
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  TouchableOpacity, 
+  TextInput, 
+  Dimensions, 
+  Platform, 
+  KeyboardAvoidingView 
+} from 'react-native';
 
 import { lightgray, white, darkGray, green } from '../utils/colors';
 import { userAuth, loginUser } from '../actions/index';
@@ -13,8 +22,7 @@ class Login extends React.Component {
 
   state = {
     username: '',
-    password: '',
-    msg: '',
+    password: ''
   }
 
   submitUserLogin = () => {
@@ -23,6 +31,10 @@ class Login extends React.Component {
         password: this.state.password
       }
       this.props.dispatch(loginUser(body))
+  }
+
+  shouldComponentUpdate(){
+    return false;
   }
 
   render() {
