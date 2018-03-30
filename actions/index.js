@@ -18,7 +18,7 @@ export const loginUser = (body) => async dispatch => {
 }
 
 // Authenticate a user
-export function userAuth(user) {
+export const userAuth = (user) => {
   return {
     type: AUTHENTICATE_USER,
     user

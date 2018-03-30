@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, Share, Button, Platform } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, Share, Button, Platform, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import QRCode from 'react-native-qrcode';
 import moment from 'moment';
@@ -20,7 +20,7 @@ class EventDetails extends React.Component {
     return date;
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     return false;
   }
 
@@ -44,14 +44,16 @@ class EventDetails extends React.Component {
               <Text style={styles.contentGeneral}>{this.getDate(item[0].eventDateTime)}</Text>
             </View>
             <View style={{ justifyContent: 'space-around', alignItems: 'center' }}>
-              <Ionicons name={ Platform.OS === 'ios' ?'ios-heart-outline' : 'md-heart-outline' }
+              <Ionicons name={Platform.OS === 'ios' ? 'ios-heart-outline' : 'md-heart-outline'}
                 size={30}
                 color={blue}
                 style={styles.icon} />
-              <Ionicons name={ Platform.OS === 'ios' ? 'ios-share-outline' : 'md-share' }
-                size={30} color={blue}
-                style={styles.icon}
-                onPress={this.ShareMessage} />
+              <TouchableOpacity onPress={this.ShareMessage} >
+                <Ionicons name={Platform.OS === 'ios' ? 'ios-share-outline' : 'md-share'}
+                  size={30} color={blue}
+                  style={styles.icon}
+                />
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.codeContainer}>

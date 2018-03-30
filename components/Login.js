@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Dimensions, Platform } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Dimensions, Platform, KeyboardAvoidingView } from 'react-native';
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -14,28 +14,20 @@ class Login extends React.Component {
   state = {
     username: '',
     password: '',
-    msg: ''
+    msg: '',
   }
 
   submitUserLogin = () => {
-    if (this.state.username || this.state.password) {
       const body = {
         username: this.state.username,
         password: this.state.password
       }
       this.props.dispatch(loginUser(body))
-    } else {
-      this.setState({ msg: 'Fill out the form 🙃' });
-    }
-  }
-
-  shouldComponentUpdate(){
-    return false;
   }
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.mainText}>Welcome to Eventz!</Text>
         <TextInput
           autoCapitalize={'none'}
@@ -62,7 +54,7 @@ class Login extends React.Component {
         <View style={styles.msg}>
           <Text>{this.state.msg}</Text>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
